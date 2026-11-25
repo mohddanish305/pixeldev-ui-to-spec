@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI-to-Spec Factory — PixelDev</title>
+  <meta name="description" content="Turn a UI mockup into a coding task package with spec, reference code, tests, and validation." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="logo">U</div><div><strong>UI-to-Spec Factory</strong><span>Design image se coding task package</span></div></div>
+    <span class="pill">PixelDev · Coding Task Factory</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Gemini idea · Innodata prototype</p>
+        <h1>Screen ka design do. Pura coding task ready.</h1>
+        <p class="lead">UI-to-Spec Factory ek mockup ko padhkar requirement spec, reference code, test file aur validation score bana deta hai. Judge ko sirf code nahi, pura task package milta hai.</p>
+      </div>
+      <div class="score-card">
+        <strong id="matchScore">—</strong><span>component match score</span>
+        <strong id="testScore">—</strong><span>validation checks</span>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel controls">
+        <h2>Mockup input</h2>
+        <label class="field"><span>Sample UI mockup</span>
+          <select id="templateSelect">
+            <option value="billing">Billing card</option>
+            <option value="login">Login form</option>
+            <option value="dashboard">Dashboard widget</option>
+            <option value="product">Product card</option>
+          </select>
+        </label>
+        <label class="field"><span>Output stack</span>
+          <select id="stackSelect">
+            <option value="html">HTML + CSS + JS</option>
+            <option value="react">React + Tailwind style</option>
+          </select>
+        </label>
+        <label class="field"><span>Extra note (optional)</span>
+          <input id="noteInput" placeholder="e.g. mobile par bhi sahi dikhe" />
+        </label>
+        <button class="primary" id="generateBtn" type="button">Generate task package</button>
+        <button class="ghost wide" id="brokenBtn" type="button">Check broken version</button>
+        <div class="note">
+          <strong>MVP note</strong>
+          <p>Abhi sample mockups structured component map se chalte hain. Full version me Gemini Vision image se wahi component map banayega.</p>
+        </div>
+      </aside>
+
+      <section class="panel main-panel">
+        <div class="panel-head">
+          <div><p class="eyebrow" id="packageId">USF-2026-001</p><h2 id="packageTitle">Billing card task package</h2></div>
+          <button class="ghost" id="downloadBtn" type="button">Download JSON</button>
+        </div>
+
+        <div class="preview-grid">
+          <div>
+            <h3>Mockup preview</h3>
+            <div class="mockup" id="mockupPreview"></div>
+          </div>
+          <div>
+            <h3>Detected components</h3>
+            <div class="components" id="components"></div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="spec" type="button">Spec</button>
+          <button class="tab" data-tab="code" type="button">Reference code</button>
+          <button class="tab" data-tab="tests" type="button">Tests</button>
+          <button class="tab" data-tab="validation" type="button">Validation</button>
+          <button class="tab" data-tab="json" type="button">JSON</button>
+        </div>
+        <div class="tab-panel active" id="tab-spec"></div>
+        <div class="tab-panel" id="tab-code"></div>
+        <div class="tab-panel" id="tab-tests"></div>
+        <div class="tab-panel" id="tab-validation"></div>
+        <div class="tab-panel" id="tab-json"></div>
+      </section>
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

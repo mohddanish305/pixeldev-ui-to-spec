@@ -1,0 +1,522 @@
+[
+  {
+    "id": "USF-2026-BIL",
+    "title": "Billing Card task package",
+    "track": "Coding Task Factory",
+    "source": "UI mockup component map",
+    "stack": "html",
+    "templateKey": "billing",
+    "template": {
+      "name": "Billing Card",
+      "goal": "User ko current plan, amount due aur payment action ek saath dikhana hai.",
+      "components": [
+        {
+          "type": "heading",
+          "label": "Pro Plan",
+          "detail": "Plan name heading"
+        },
+        {
+          "type": "text",
+          "label": "₹499/month",
+          "detail": "Price text"
+        },
+        {
+          "type": "row",
+          "label": "Next bill · 1 Dec",
+          "detail": "Billing date row"
+        },
+        {
+          "type": "badge",
+          "label": "Active",
+          "detail": "Status badge"
+        },
+        {
+          "type": "button",
+          "label": "Pay Now",
+          "detail": "Primary payment button"
+        }
+      ],
+      "interactions": [
+        "Pay Now click par payment state change ho",
+        "Active badge hamesha visible rahe"
+      ],
+      "acceptance": [
+        "Plan name aur price clearly visible hon",
+        "Pay Now button keyboard se focus ho",
+        "Mobile width par card overflow na kare"
+      ]
+    },
+    "spec": "# Billing Card — Feature Task\nGoal: User ko current plan, amount due aur payment action ek saath dikhana hai.\n## Required components\n- Pro Plan (heading) — Plan name heading\n- ₹499/month (text) — Price text\n- Next bill · 1 Dec (row) — Billing date row\n- Active (badge) — Status badge\n- Pay Now (button) — Primary payment button\n## Interactions\n- Pay Now click par payment state change ho\n- Active badge hamesha visible rahe\n## Acceptance criteria\n- Plan name aur price clearly visible hon\n- Pay Now button keyboard se focus ho\n- Mobile width par card overflow na kare",
+    "code": "<section class=\"card\" aria-label=\"Billing Card\">\n      <h2>Pro Plan</h2>\n      <p>₹499/month</p>\n      <div class=\"row\"><span>Next bill · 1 Dec</span></div>\n      <span class=\"badge\">Active</span>\n      <button type=\"button\" data-action=\"pay-now\">Pay Now</button>\n    </section>\n\n<style>\n.card{max-width:420px;border:1px solid #e4e7ec;border-radius:20px;padding:20px;font-family:system-ui}\n.card button{background:#2563eb;color:#fff;border:0;border-radius:12px;padding:11px 14px;font-weight:800}\n.card input{width:100%;padding:11px;border:1px solid #e4e7ec;border-radius:12px}\n.badge{background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-weight:800}\n.progress{height:10px;background:#eef2ff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb}\n@media(max-width:520px){.card{max-width:100%}}\n</style>\n\n<script>\ndocument.querySelector('[data-action]')?.addEventListener('click', () => {\n  document.body.dataset.lastAction = 'clicked';\n});\n</script>",
+    "tests": "import { test, expect } from '@playwright/test';\n\ntest('Billing Card matches the mockup task', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByText('Pro Plan')).toBeVisible();\n  await expect(page.getByText('₹499/month')).toBeVisible();\n  await expect(page.getByText('Next bill · 1 Dec')).toBeVisible();\n  await expect(page.getByText('Active')).toBeVisible();\n  await expect(page.getByRole('button', { name: 'Pay Now' })).toBeVisible();\n});\n\ntest('primary action responds', async ({ page }) => {\n  await page.goto('/');\n  await page.getByRole('button').first().click();\n  await expect(page.locator('body')).toHaveAttribute('data-last-action', 'clicked');\n});",
+    "note": "",
+    "validation": {
+      "checks": [
+        {
+          "check": "Component present: Pro Plan",
+          "pass": true
+        },
+        {
+          "check": "Component present: ₹499/month",
+          "pass": true
+        },
+        {
+          "check": "Component present: Next bill · 1 Dec",
+          "pass": true
+        },
+        {
+          "check": "Component present: Active",
+          "pass": true
+        },
+        {
+          "check": "Component present: Pay Now",
+          "pass": true
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 8,
+      "total": 8,
+      "score": 100
+    },
+    "brokenValidation": {
+      "checks": [
+        {
+          "check": "Component present: Pro Plan",
+          "pass": true
+        },
+        {
+          "check": "Component present: ₹499/month",
+          "pass": true
+        },
+        {
+          "check": "Component present: Next bill · 1 Dec",
+          "pass": true
+        },
+        {
+          "check": "Component present: Active",
+          "pass": true
+        },
+        {
+          "check": "Component present: Pay Now",
+          "pass": false
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "total": 8,
+      "score": 88
+    }
+  },
+  {
+    "id": "USF-2026-LOG",
+    "title": "Login Form task package",
+    "track": "Coding Task Factory",
+    "source": "UI mockup component map",
+    "stack": "html",
+    "templateKey": "login",
+    "template": {
+      "name": "Login Form",
+      "goal": "User email aur password se safely sign in kar sake.",
+      "components": [
+        {
+          "type": "heading",
+          "label": "Welcome back",
+          "detail": "Form heading"
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "detail": "Email input with label"
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "detail": "Password input with label"
+        },
+        {
+          "type": "button",
+          "label": "Sign In",
+          "detail": "Submit button"
+        },
+        {
+          "type": "text",
+          "label": "Forgot password?",
+          "detail": "Recovery link text"
+        }
+      ],
+      "interactions": [
+        "Empty email par error dikhe",
+        "Sign In click par loading state aaye"
+      ],
+      "acceptance": [
+        "Har input ke saath label ho",
+        "Password field type password ho",
+        "Error message screen reader ko mile"
+      ]
+    },
+    "spec": "# Login Form — Feature Task\nGoal: User email aur password se safely sign in kar sake.\n## Required components\n- Welcome back (heading) — Form heading\n- Email (input) — Email input with label\n- Password (input) — Password input with label\n- Sign In (button) — Submit button\n- Forgot password? (text) — Recovery link text\n## Interactions\n- Empty email par error dikhe\n- Sign In click par loading state aaye\n## Acceptance criteria\n- Har input ke saath label ho\n- Password field type password ho\n- Error message screen reader ko mile",
+    "code": "<section class=\"card\" aria-label=\"Login Form\">\n      <h2>Welcome back</h2>\n      <label for=\"email\">Email</label><input id=\"email\" type=\"email\" aria-label=\"Email\" />\n      <label for=\"password\">Password</label><input id=\"password\" type=\"password\" aria-label=\"Password\" />\n      <button type=\"button\" data-action=\"sign-in\">Sign In</button>\n      <p>Forgot password?</p>\n    </section>\n\n<style>\n.card{max-width:420px;border:1px solid #e4e7ec;border-radius:20px;padding:20px;font-family:system-ui}\n.card button{background:#2563eb;color:#fff;border:0;border-radius:12px;padding:11px 14px;font-weight:800}\n.card input{width:100%;padding:11px;border:1px solid #e4e7ec;border-radius:12px}\n.badge{background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-weight:800}\n.progress{height:10px;background:#eef2ff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb}\n@media(max-width:520px){.card{max-width:100%}}\n</style>\n\n<script>\ndocument.querySelector('[data-action]')?.addEventListener('click', () => {\n  document.body.dataset.lastAction = 'clicked';\n});\n</script>",
+    "tests": "import { test, expect } from '@playwright/test';\n\ntest('Login Form matches the mockup task', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByText('Welcome back')).toBeVisible();\n  await expect(page.getByLabel('Email')).toBeVisible();\n  await expect(page.getByLabel('Password')).toBeVisible();\n  await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();\n  await expect(page.getByText('Forgot password?')).toBeVisible();\n});\n\ntest('primary action responds', async ({ page }) => {\n  await page.goto('/');\n  await page.getByRole('button').first().click();\n  await expect(page.locator('body')).toHaveAttribute('data-last-action', 'clicked');\n});",
+    "note": "",
+    "validation": {
+      "checks": [
+        {
+          "check": "Component present: Welcome back",
+          "pass": true
+        },
+        {
+          "check": "Component present: Email",
+          "pass": true
+        },
+        {
+          "check": "Component present: Password",
+          "pass": true
+        },
+        {
+          "check": "Component present: Sign In",
+          "pass": true
+        },
+        {
+          "check": "Component present: Forgot password?",
+          "pass": true
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 8,
+      "total": 8,
+      "score": 100
+    },
+    "brokenValidation": {
+      "checks": [
+        {
+          "check": "Component present: Welcome back",
+          "pass": true
+        },
+        {
+          "check": "Component present: Email",
+          "pass": true
+        },
+        {
+          "check": "Component present: Password",
+          "pass": true
+        },
+        {
+          "check": "Component present: Sign In",
+          "pass": false
+        },
+        {
+          "check": "Component present: Forgot password?",
+          "pass": true
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "total": 8,
+      "score": 88
+    }
+  },
+  {
+    "id": "USF-2026-DAS",
+    "title": "Dashboard Widget task package",
+    "track": "Coding Task Factory",
+    "source": "UI mockup component map",
+    "stack": "html",
+    "templateKey": "dashboard",
+    "template": {
+      "name": "Dashboard Widget",
+      "goal": "Team ko weekly progress ek glance me dikhana hai.",
+      "components": [
+        {
+          "type": "heading",
+          "label": "Weekly Progress",
+          "detail": "Widget heading"
+        },
+        {
+          "type": "text",
+          "label": "72% complete",
+          "detail": "Progress value"
+        },
+        {
+          "type": "progress",
+          "label": "72",
+          "detail": "Progress bar"
+        },
+        {
+          "type": "row",
+          "label": "Tasks · 18/25",
+          "detail": "Task count row"
+        },
+        {
+          "type": "button",
+          "label": "View Report",
+          "detail": "Report button"
+        }
+      ],
+      "interactions": [
+        "View Report click par report section khule",
+        "Progress bar value text se match kare"
+      ],
+      "acceptance": [
+        "Progress percentage aur bar same value dikhayein",
+        "Widget chhoti screen par readable rahe",
+        "Button ka purpose clear ho"
+      ]
+    },
+    "spec": "# Dashboard Widget — Feature Task\nGoal: Team ko weekly progress ek glance me dikhana hai.\n## Required components\n- Weekly Progress (heading) — Widget heading\n- 72% complete (text) — Progress value\n- 72 (progress) — Progress bar\n- Tasks · 18/25 (row) — Task count row\n- View Report (button) — Report button\n## Interactions\n- View Report click par report section khule\n- Progress bar value text se match kare\n## Acceptance criteria\n- Progress percentage aur bar same value dikhayein\n- Widget chhoti screen par readable rahe\n- Button ka purpose clear ho",
+    "code": "<section class=\"card\" aria-label=\"Dashboard Widget\">\n      <h2>Weekly Progress</h2>\n      <p>72% complete</p>\n      <div class=\"progress\" role=\"progressbar\" aria-valuenow=\"72\" aria-valuemin=\"0\" aria-valuemax=\"100\"><i style=\"width:72%\"></i></div>\n      <div class=\"row\"><span>Tasks · 18/25</span></div>\n      <button type=\"button\" data-action=\"view-report\">View Report</button>\n    </section>\n\n<style>\n.card{max-width:420px;border:1px solid #e4e7ec;border-radius:20px;padding:20px;font-family:system-ui}\n.card button{background:#2563eb;color:#fff;border:0;border-radius:12px;padding:11px 14px;font-weight:800}\n.card input{width:100%;padding:11px;border:1px solid #e4e7ec;border-radius:12px}\n.badge{background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-weight:800}\n.progress{height:10px;background:#eef2ff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb}\n@media(max-width:520px){.card{max-width:100%}}\n</style>\n\n<script>\ndocument.querySelector('[data-action]')?.addEventListener('click', () => {\n  document.body.dataset.lastAction = 'clicked';\n});\n</script>",
+    "tests": "import { test, expect } from '@playwright/test';\n\ntest('Dashboard Widget matches the mockup task', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByText('Weekly Progress')).toBeVisible();\n  await expect(page.getByText('72% complete')).toBeVisible();\n  await expect(page.getByText('72')).toBeVisible();\n  await expect(page.getByText('Tasks · 18/25')).toBeVisible();\n  await expect(page.getByRole('button', { name: 'View Report' })).toBeVisible();\n});\n\ntest('primary action responds', async ({ page }) => {\n  await page.goto('/');\n  await page.getByRole('button').first().click();\n  await expect(page.locator('body')).toHaveAttribute('data-last-action', 'clicked');\n});",
+    "note": "",
+    "validation": {
+      "checks": [
+        {
+          "check": "Component present: Weekly Progress",
+          "pass": true
+        },
+        {
+          "check": "Component present: 72% complete",
+          "pass": true
+        },
+        {
+          "check": "Component present: 72",
+          "pass": true
+        },
+        {
+          "check": "Component present: Tasks · 18/25",
+          "pass": true
+        },
+        {
+          "check": "Component present: View Report",
+          "pass": true
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 8,
+      "total": 8,
+      "score": 100
+    },
+    "brokenValidation": {
+      "checks": [
+        {
+          "check": "Component present: Weekly Progress",
+          "pass": true
+        },
+        {
+          "check": "Component present: 72% complete",
+          "pass": true
+        },
+        {
+          "check": "Component present: 72",
+          "pass": true
+        },
+        {
+          "check": "Component present: Tasks · 18/25",
+          "pass": true
+        },
+        {
+          "check": "Component present: View Report",
+          "pass": false
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "total": 8,
+      "score": 88
+    }
+  },
+  {
+    "id": "USF-2026-PRO",
+    "title": "Product Card task package",
+    "track": "Coding Task Factory",
+    "source": "UI mockup component map",
+    "stack": "html",
+    "templateKey": "product",
+    "template": {
+      "name": "Product Card",
+      "goal": "Shopper ko product, price aur buy action jaldi samajh aaye.",
+      "components": [
+        {
+          "type": "heading",
+          "label": "Wireless Earbuds",
+          "detail": "Product title"
+        },
+        {
+          "type": "text",
+          "label": "₹1,999",
+          "detail": "Product price"
+        },
+        {
+          "type": "badge",
+          "label": "20% OFF",
+          "detail": "Offer badge"
+        },
+        {
+          "type": "row",
+          "label": "Rating · 4.5",
+          "detail": "Rating row"
+        },
+        {
+          "type": "button",
+          "label": "Add to Cart",
+          "detail": "Cart button"
+        }
+      ],
+      "interactions": [
+        "Add to Cart click par cart count badhe",
+        "Offer badge price ke paas visible rahe"
+      ],
+      "acceptance": [
+        "Product title, price aur rating visible hon",
+        "Add to Cart button prominent ho",
+        "Card layout mobile par stack ho jaye"
+      ]
+    },
+    "spec": "# Product Card — Feature Task\nGoal: Shopper ko product, price aur buy action jaldi samajh aaye.\n## Required components\n- Wireless Earbuds (heading) — Product title\n- ₹1,999 (text) — Product price\n- 20% OFF (badge) — Offer badge\n- Rating · 4.5 (row) — Rating row\n- Add to Cart (button) — Cart button\n## Interactions\n- Add to Cart click par cart count badhe\n- Offer badge price ke paas visible rahe\n## Acceptance criteria\n- Product title, price aur rating visible hon\n- Add to Cart button prominent ho\n- Card layout mobile par stack ho jaye",
+    "code": "<section class=\"card\" aria-label=\"Product Card\">\n      <h2>Wireless Earbuds</h2>\n      <p>₹1,999</p>\n      <span class=\"badge\">20% OFF</span>\n      <div class=\"row\"><span>Rating · 4.5</span></div>\n      <button type=\"button\" data-action=\"add-to-cart\">Add to Cart</button>\n    </section>\n\n<style>\n.card{max-width:420px;border:1px solid #e4e7ec;border-radius:20px;padding:20px;font-family:system-ui}\n.card button{background:#2563eb;color:#fff;border:0;border-radius:12px;padding:11px 14px;font-weight:800}\n.card input{width:100%;padding:11px;border:1px solid #e4e7ec;border-radius:12px}\n.badge{background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-weight:800}\n.progress{height:10px;background:#eef2ff;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb}\n@media(max-width:520px){.card{max-width:100%}}\n</style>\n\n<script>\ndocument.querySelector('[data-action]')?.addEventListener('click', () => {\n  document.body.dataset.lastAction = 'clicked';\n});\n</script>",
+    "tests": "import { test, expect } from '@playwright/test';\n\ntest('Product Card matches the mockup task', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByText('Wireless Earbuds')).toBeVisible();\n  await expect(page.getByText('₹1,999')).toBeVisible();\n  await expect(page.getByText('20% OFF')).toBeVisible();\n  await expect(page.getByText('Rating · 4.5')).toBeVisible();\n  await expect(page.getByRole('button', { name: 'Add to Cart' })).toBeVisible();\n});\n\ntest('primary action responds', async ({ page }) => {\n  await page.goto('/');\n  await page.getByRole('button').first().click();\n  await expect(page.locator('body')).toHaveAttribute('data-last-action', 'clicked');\n});",
+    "note": "",
+    "validation": {
+      "checks": [
+        {
+          "check": "Component present: Wireless Earbuds",
+          "pass": true
+        },
+        {
+          "check": "Component present: ₹1,999",
+          "pass": true
+        },
+        {
+          "check": "Component present: 20% OFF",
+          "pass": true
+        },
+        {
+          "check": "Component present: Rating · 4.5",
+          "pass": true
+        },
+        {
+          "check": "Component present: Add to Cart",
+          "pass": true
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 8,
+      "total": 8,
+      "score": 100
+    },
+    "brokenValidation": {
+      "checks": [
+        {
+          "check": "Component present: Wireless Earbuds",
+          "pass": true
+        },
+        {
+          "check": "Component present: ₹1,999",
+          "pass": true
+        },
+        {
+          "check": "Component present: 20% OFF",
+          "pass": true
+        },
+        {
+          "check": "Component present: Rating · 4.5",
+          "pass": true
+        },
+        {
+          "check": "Component present: Add to Cart",
+          "pass": false
+        },
+        {
+          "check": "Accessible labels or roles present",
+          "pass": true
+        },
+        {
+          "check": "Responsive rule present",
+          "pass": true
+        },
+        {
+          "check": "Primary action handler present",
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "total": 8,
+      "score": 88
+    }
+  }
+]
